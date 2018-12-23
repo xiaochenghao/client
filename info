@@ -1,7 +1,7 @@
 https://github.com/jenkinsci/java-client-api/blob/master/jenkins-client/src/test/java/com/offbytwo/jenkins/JenkinsServerTest.java
 
 https://github.com/xiaoqiangge/ehousechina/tree/master/TSD/ESS/Jenkins/Jenkins-API
-
+http://localhost:8088/jenkins/crumbIssuer/api/json
 
     管理
 
