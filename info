@@ -1,0 +1,30 @@
+https://github.com/jenkinsci/java-client-api/blob/master/jenkins-client/src/test/java/com/offbytwo/jenkins/JenkinsServerTest.java
+
+
+
+    管理
+
+Jenkins RestAPI调用出现Error 403 No valid crumb was included in the request
+
+方法一（不推荐）：
+
+在jenkins 的Configure Global Security下 , 取消“防止跨站点请求伪造（Prevent Cross Site Request Forgery exploits）”的勾选
+
+ 
+
+方法二：
+
+1、获取用户API token
+
+http://Jenkins_IP:8080/user/zhangyi/configure
+
+点击 show API Token，假设是API_TOKEN
+
+2、计算CRUMB
+
+CRUMB=$(curl -s 'http://USER:API_TOKEN@Jenkins_IP:8080/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,":",//crumb)')
+
+3、请求时附带CRUMB信息即可
+
+curl -X POST -H "$CRUMB" http://USER:API_TOKEN@cd.web.tc.ted:8080/reload
+
