@@ -1,0 +1,42 @@
+package com.example.service;
+
+import com.google.common.base.Optional;
+import com.offbytwo.jenkins.JenkinsServer;
+import com.offbytwo.jenkins.model.FolderJob;
+import com.offbytwo.jenkins.model.Job;
+
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Map;
+
+public class JenkinsAPI {
+    public static void main(String args[]) {
+
+        try {
+            JenkinsServer jenkins = new JenkinsServer(new URI("http://localhost:8088/jenkins"), "chenghao", "chenghao");
+
+
+            String path = "http://localhost:8088/jenkins/job/test/";
+            FolderJob folderJob = new FolderJob("test", path);
+            Map<String, Job> jobs = jenkins.getJobs(folderJob);
+
+            for (String key: jobs.keySet())
+            {
+                System.out.println("Key = " + key);
+            }
+
+            for (Job jb: jobs.values())
+            {
+                System.out.println(jb.toString());
+                jb.build();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+    }
+}
